@@ -1,6 +1,19 @@
 # Prerequisites
 *.d
 
+# Build folders
+build/
+**/build/
+**/BUILD/
+**/BUILD-*/
+
+# QT stuff
+.qtcreator/
+**/.qtcreator/
+
+*.user*
+
+
 # Compiled Object files
 *.slo
 *.lo
