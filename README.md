@@ -1,2 +1,2 @@
 # Kontin-Oliot
-Tähän reposta löytyy Olio-ohjelmointi tehtävien palautukset
+Tästä reposta löytyy Olio-ohjelmointi tehtävien palautukset
