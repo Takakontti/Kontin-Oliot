@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -18,7 +19,7 @@ public:
     ~MainWindow();
     void setupConnections();
     void handleNum(QString num);
-    void handleOp(int op);
+    void handleOp(QString op);
     void reset();
     void calculation();
 
@@ -31,6 +32,9 @@ private:
     QString number1, number2;
     float result = 0;
     int naytto = 0;
-    int operand;
+    std::string operand;
+    std::unordered_set<std::string> numList{"0","1","2","3","4","5","6","7","8","9","0"};
+    std::unordered_set<std::string> opList{"+","-","*","/"};
+    std::string inComp;
 };
 #endif // MAINWINDOW_H

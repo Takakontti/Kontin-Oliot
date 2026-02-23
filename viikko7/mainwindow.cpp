@@ -41,41 +41,25 @@ void MainWindow::handleNum(QString num)
 
     }
 
-    qDebug()<<"Nappia"<<num<<"Painettu";
+    qDebug()<<"Button"<<num<<"Pressed";
 
 }
 
-void MainWindow::handleOp(int op)
+void MainWindow::handleOp(QString op)
 {
     naytto = 1;
-    operand = op;
-    qDebug()<<"Operand"<<op<<"Selected";
+    operand = op.toStdString();
+    qDebug()<<"Operand"<<operand<<"Selected";
 }
 
 void MainWindow::calculation()
 {
     float n1 = number1.toFloat();
     float n2 = number2.toFloat();
-    switch (operand) {
-    case 0:
-        result = n1 + n2;
-
-        break;
-    case 1:
-        result = n1 - n2;
-
-        break;
-    case 2:
-        result = n1 * n2;
-
-        break;
-    case 3:
-        result = n1 / n2;
-
-        break;
-    default:
-        break;
-    }
+    if (operand == "+") result = n1 + n2;
+    else if (operand == "-") result = n1 - n2;
+    else if (operand == "*") result = n1 * n2;
+    else if (operand == "/") result = n1 / n2;
 
     ui->Result->setText(QString::number(result));
 
@@ -93,12 +77,28 @@ void MainWindow::setupConnections()
 
 void MainWindow::allButtonsClicked()
 {
+    QPushButton *btn = qobject_cast<QPushButton*>(sender());
+
+    inComp = btn->text().toStdString();
+
+    if(numList.find(inComp) != numList.end())
+    {
+        handleNum(btn->text());
+    }
+    else if (opList.find(inComp) != numList.end())
+    {
+        handleOp(btn->text());
+    }
+    else if (inComp == "Reset") reset();
+    else if (inComp == "Enter") calculation();
+
+    // Deprecated -- dont use the following
+
     // Löysin tavan yhdistää kaikki napit loopissa, mutta
     // joudun käyttämään ison kasan else if funktioita
     // koska en jaksa etsiä parempaa tapaa tehdä tätä
     // ja tämä on kuitenkin aika luettavaa silti.
-    QPushButton *btn = qobject_cast<QPushButton*>(sender());
-    if (btn->objectName() == "Num_1") handleNum("1");
+    /* if (btn->objectName() == "Num_1") handleNum("1");
     else if (btn->objectName() == "Num_2") handleNum("2");
     else if (btn->objectName() == "Num_3") handleNum("3");
     else if (btn->objectName() == "Num_4") handleNum("4");
@@ -114,5 +114,6 @@ void MainWindow::allButtonsClicked()
     else if (btn->objectName() == "Div") handleOp(3); // /
     else if (btn->objectName() == "Reset") reset();
     else if (btn->objectName() == "Enter") calculation();
+    */
 
 }
